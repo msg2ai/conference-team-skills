@@ -15,7 +15,7 @@ There is no build step, no tests, and no dependencies. The deliverables are mark
 
 Each skill is a folder at the repo root containing a single `SKILL.md` file with YAML frontmatter (`name`, `description`) and markdown instructions. The frontmatter `description` field is what Claude uses to decide when to invoke the skill, so it must contain trigger phrases.
 
-The 8 skills: `general-chair`, `program-content`, `sponsorship`, `marketing-comms`, `venue-logistics`, `finance-registration`, `attendee-experience`, `vibe-coder`.
+The 8 skills: `conference-general-chair`, `conference-program-chair`, `conference-sponsorship-lead`, `conference-marketing-comms`, `conference-venue-logistics`, `conference-finance-registration`, `conference-attendee-experience`, `conference-vibe-coder`. Each directory name **must** match the `name:` field in its `SKILL.md` frontmatter — Claude Code's skill loader will silently skip skills where they diverge.
 
 Every skill (except setup boilerplate) follows the same shape: `### 0. Connect to the Shared Knowledge Base` (Google Drive / Dropbox / OneDrive / Notion) is the first capability, with **Firecrawl** as the website-bootstrap path. The last capability is always `### N. Export to hello.msg2ai.xyz Event JSON` — each skill owns a slice of `10-msg2ai-export/event.json`. The General Chair owns the master file and merges the slices.
 
@@ -27,7 +27,7 @@ The `.claude-plugin/plugin.json` manifest points `"skills": "./"` at the repo ro
 
 - Skill names use the pattern `conference-<role>` (e.g., `conference-general-chair`).
 - Every skill references Claude connectors (Gmail, Google Calendar, Google Drive, Zoho CRM) but none depend on them — they're optional accelerators.
-- The `attendee-experience` skill is unique: it references two external products (AI Ambassador at ai-ambassador.xyz, ActionNotes) that are not part of this repo.
+- The `conference-attendee-experience` skill is unique: it references two external products (AI Ambassador at ai-ambassador.xyz, ActionNotes) that are not part of this repo.
 - `package.json` `files` array controls what ships to npm — every skill folder and `.claude-plugin/` must be listed there.
 
 ## When editing skills

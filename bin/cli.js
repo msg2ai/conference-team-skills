@@ -10,14 +10,14 @@ const REPO_URL_PRIMARY = "https://github.com/msg2ai/conference-team-skills.git";
 const REPO_URL_LEGACY  = "https://github.com/RethinkLedgers/conference-team-skills.git";
 
 const SKILL_FOLDERS = [
-  "general-chair",
-  "program-content",
-  "sponsorship",
-  "marketing-comms",
-  "venue-logistics",
-  "finance-registration",
-  "attendee-experience",
-  "vibe-coder",
+  "conference-general-chair",
+  "conference-program-chair",
+  "conference-sponsorship-lead",
+  "conference-marketing-comms",
+  "conference-venue-logistics",
+  "conference-finance-registration",
+  "conference-attendee-experience",
+  "conference-vibe-coder",
 ];
 
 // Determine the Claude skills directory based on platform
@@ -231,14 +231,14 @@ function update() {
 function list() {
   console.log("Available skills:");
   console.log("");
-  console.log("  general-chair          Conference Chair / Event Director (Sara)");
-  console.log("  program-content        Program Director (Marco)");
-  console.log("  sponsorship            Head of Sponsorship (James)");
-  console.log("  marketing-comms        CMO / Marketing & Communications (Priya)");
-  console.log("  venue-logistics        Head of Operations / Venue & Logistics (Tom)");
-  console.log("  finance-registration   CFO / Finance & Registration (Amelia)");
-  console.log("  attendee-experience    Chief Experience Officer / Attendee XP (Lena)");
-  console.log("  vibe-coder             Head of Web / Vibe Coder — Next.js + Vercel + GitHub (Noor)");
+  console.log("  conference-general-chair          Conference Chair / Event Director (Sara)");
+  console.log("  conference-program-chair          Program Director (Marco)");
+  console.log("  conference-sponsorship-lead       Head of Sponsorship (James)");
+  console.log("  conference-marketing-comms        CMO / Marketing & Communications (Priya)");
+  console.log("  conference-venue-logistics        Head of Operations / Venue & Logistics (Tom)");
+  console.log("  conference-finance-registration   CFO / Finance & Registration (Amelia)");
+  console.log("  conference-attendee-experience    Chief Experience Officer / Attendee XP (Lena)");
+  console.log("  conference-vibe-coder             Head of Web / Vibe Coder — Next.js + Vercel + GitHub (Noor)");
   console.log("");
 
   const skillsDir = getSkillsDir();

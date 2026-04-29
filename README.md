@@ -9,7 +9,7 @@ Built by [MSG2AI](https://msg2ai.xyz) · AI Ambassador for attendees · ActionNo
     <img src="./docs/campaign-visual.png" alt="The 8 Claude Skills for conference teams: Conference Chair, Program Director, Head of Sponsorship, CMO, Head of Operations, CFO, Chief Experience Officer, and Head of Web — each shown as a cartoon character with a real persona. Reply SKILLS to get them, free." width="720" />
   </a>
   <br/>
-  <em>The 8 AI teammates · <a href="./docs/campaign-visual.html">view the animated visual</a> · <a href="https://conference-team-skills-website.vercel.app">non-technical landing page</a></em>
+  <em>The 8 AI teammates · <a href="./docs/campaign-visual.html">view the animated visual</a></em>
 </p>
 
 ---
@@ -21,8 +21,6 @@ Every conference organizing committee has the same 7 roles. Most teams have 1–
 Install one skill or all eight. Each is self-contained.
 
 > **Heads up — you'll need a GitHub account to pull these skills onto your machine.** Whether you install via `npx` or clone manually, the install runs `git clone` against this public repository, so you need (a) Git installed locally and (b) a free [github.com](https://github.com) account so the clone can authenticate when needed (HTTPS works without auth on public repos, but a GitHub account avoids rate limits and lets you contribute back). If you don't want to use GitHub at all, see [Option 5 — Claude.ai Projects](#option-5--claudeai-projects-co-work--non-technical-users) for a no-Git, browser-only path.
-
-> **Looking for the non-technical overview?** See the [landing page](https://conference-team-skills-website.vercel.app) — examples, scenarios, and value for conference organizers without any setup talk.
 
 ---
 
@@ -108,14 +106,14 @@ To set up Firecrawl: `bash setup/setup-firecrawl.sh`
 
 | Skill | Role | Key Capabilities |
 |---|---|---|
-| [`general-chair`](./general-chair/) | General Chair / Event Director | Timeline, committee coordination, risk register, board briefings |
-| [`program-content`](./program-content/) | Program & Content Chair | Agenda design, CFP, speaker outreach, peer review, run-of-show |
-| [`sponsorship`](./sponsorship/) | Sponsorship Lead | Prospect research, deck tailoring, outreach sequences, contracts, activation tracking |
-| [`marketing-comms`](./marketing-comms/) | Marketing & Communications | Campaign planning, copy generation, PR, post-event storytelling |
-| [`venue-logistics`](./venue-logistics/) | Venue & Logistics Coordinator | Venue RFPs, F&B, floor plans, vendor management, run-of-show |
-| [`finance-registration`](./finance-registration/) | Finance & Registration Chair | Budget modeling, registration tiers, sponsor invoicing, expense tracking |
-| [`attendee-experience`](./attendee-experience/) | Attendee Experience Lead | On-site helpdesk, networking, session reminders, NPS — powered by AI Ambassador + ActionNotes |
-| [`vibe-coder`](./vibe-coder/) | Vibe Coder / Web Builder | Landing pages, full event sites, sponsor microsites, registration pages — ships to Vercel via Next.js + GitHub |
+| [`conference-general-chair`](./conference-general-chair/) | General Chair / Event Director | Timeline, committee coordination, risk register, board briefings |
+| [`conference-program-chair`](./conference-program-chair/) | Program & Content Chair | Agenda design, CFP, speaker outreach, peer review, run-of-show |
+| [`conference-sponsorship-lead`](./conference-sponsorship-lead/) | Sponsorship Lead | Prospect research, deck tailoring, outreach sequences, contracts, activation tracking |
+| [`conference-marketing-comms`](./conference-marketing-comms/) | Marketing & Communications | Campaign planning, copy generation, PR, post-event storytelling |
+| [`conference-venue-logistics`](./conference-venue-logistics/) | Venue & Logistics Coordinator | Venue RFPs, F&B, floor plans, vendor management, run-of-show |
+| [`conference-finance-registration`](./conference-finance-registration/) | Finance & Registration Chair | Budget modeling, registration tiers, sponsor invoicing, expense tracking |
+| [`conference-attendee-experience`](./conference-attendee-experience/) | Attendee Experience Lead | On-site helpdesk, networking, session reminders, NPS — powered by AI Ambassador + ActionNotes |
+| [`conference-vibe-coder`](./conference-vibe-coder/) | Vibe Coder / Web Builder | Landing pages, full event sites, sponsor microsites, registration pages — ships to Vercel via Next.js + GitHub |
 
 ---
 
@@ -246,9 +244,9 @@ claude --plugin-dir ./conference-team-skills
 Once loaded, skills are available as namespaced commands:
 
 ```
-/conference-team-skills:general-chair
-/conference-team-skills:sponsorship
-/conference-team-skills:marketing-comms
+/conference-team-skills:conference-general-chair
+/conference-team-skills:conference-sponsorship-lead
+/conference-team-skills:conference-marketing-comms
 ```
 
 (and so on for all 8 skills)
@@ -302,7 +300,7 @@ git clone https://github.com/msg2ai/conference-team-skills.git ~/.claude/skills/
 ls ~/.claude/skills/conference-team-skills/
 ```
 
-You should see seven folders: `general-chair`, `program-content`, `sponsorship`, `marketing-comms`, `venue-logistics`, `finance-registration`, `attendee-experience`.
+You should see eight folders: `conference-general-chair`, `conference-program-chair`, `conference-sponsorship-lead`, `conference-marketing-comms`, `conference-venue-logistics`, `conference-finance-registration`, `conference-attendee-experience`, `conference-vibe-coder`.
 
 **Step 4: Use a skill**
 
@@ -312,10 +310,10 @@ Open Claude Code and type a natural prompt that matches a skill:
 Plan the conference timeline — our event is September 15, 500 attendees
 ```
 
-Claude Code will automatically pick up the `general-chair` skill. You can also invoke a skill directly:
+Claude Code will automatically pick up the `conference-general-chair` skill. You can also invoke a skill directly:
 
 ```
-/general-chair
+/conference-general-chair
 ```
 
 ---
@@ -359,13 +357,14 @@ The skills are automatically detected from `~/.claude/skills/`. No additional co
 3. Name the project after your event (e.g., "TechSummit 2026 — Sponsorship")
 4. In the project, click the **pencil icon** next to "Project instructions" (or go to **Project Settings**)
 5. Open the skill file you want from this repository:
-   - [`general-chair/SKILL.md`](./general-chair/SKILL.md)
-   - [`program-content/SKILL.md`](./program-content/SKILL.md)
-   - [`sponsorship/SKILL.md`](./sponsorship/SKILL.md)
-   - [`marketing-comms/SKILL.md`](./marketing-comms/SKILL.md)
-   - [`venue-logistics/SKILL.md`](./venue-logistics/SKILL.md)
-   - [`finance-registration/SKILL.md`](./finance-registration/SKILL.md)
-   - [`attendee-experience/SKILL.md`](./attendee-experience/SKILL.md)
+   - [`conference-general-chair/SKILL.md`](./conference-general-chair/SKILL.md)
+   - [`conference-program-chair/SKILL.md`](./conference-program-chair/SKILL.md)
+   - [`conference-sponsorship-lead/SKILL.md`](./conference-sponsorship-lead/SKILL.md)
+   - [`conference-marketing-comms/SKILL.md`](./conference-marketing-comms/SKILL.md)
+   - [`conference-venue-logistics/SKILL.md`](./conference-venue-logistics/SKILL.md)
+   - [`conference-finance-registration/SKILL.md`](./conference-finance-registration/SKILL.md)
+   - [`conference-attendee-experience/SKILL.md`](./conference-attendee-experience/SKILL.md)
+   - [`conference-vibe-coder/SKILL.md`](./conference-vibe-coder/SKILL.md)
 6. Click on the file, then click **Raw** (top-right of the file view) to see the plain text
 7. **Copy everything** from the file and **paste** it into the project instructions box
 8. Click **Save**
@@ -488,7 +487,7 @@ Node.js is not installed. Download it from [nodejs.org](https://nodejs.org) — 
 
 1. Make sure the files are in the right location:
    ```bash
-   ls ~/.claude/skills/conference-team-skills/general-chair/SKILL.md
+   ls ~/.claude/skills/conference-team-skills/conference-general-chair/SKILL.md
    ```
    If this shows "No such file or directory", the clone went to the wrong place. Re-run the `git clone` command from the installation steps.
 
@@ -557,21 +556,21 @@ conference-team-skills/
 │   ├── setup-firecrawl.sh
 │   ├── setup-vercel.sh
 │   └── setup-obsidian.sh
-├── general-chair/
+├── conference-general-chair/
 │   └── SKILL.md               ← General Chair skill
-├── program-content/
+├── conference-program-chair/
 │   └── SKILL.md               ← Program & Content Chair skill
-├── sponsorship/
+├── conference-sponsorship-lead/
 │   └── SKILL.md               ← Sponsorship Lead skill
-├── marketing-comms/
+├── conference-marketing-comms/
 │   └── SKILL.md               ← Marketing & Communications skill
-├── venue-logistics/
+├── conference-venue-logistics/
 │   └── SKILL.md               ← Venue & Logistics skill
-├── finance-registration/
+├── conference-finance-registration/
 │   └── SKILL.md               ← Finance & Registration skill
-├── attendee-experience/
+├── conference-attendee-experience/
 │   └── SKILL.md               ← Attendee Experience skill
-└── vibe-coder/
+└── conference-vibe-coder/
     └── SKILL.md               ← Vibe Coder / Web Builder skill
 ```
 
