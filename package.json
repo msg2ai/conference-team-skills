@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "8 free Claude skills for conference organizing teams — one for every seat on your org chart, plus a Vibe Coder for shipping the website. Built by MSG2AI.",
   "keywords": [
     "claude",
@@ -31,14 +31,14 @@
   },
   "files": [
     "bin/",
-    "general-chair/",
-    "program-content/",
-    "sponsorship/",
-    "marketing-comms/",
-    "venue-logistics/",
-    "finance-registration/",
-    "attendee-experience/",
-    "vibe-coder/",
+    "conference-general-chair/",
+    "conference-program-chair/",
+    "conference-sponsorship-lead/",
+    "conference-marketing-comms/",
+    "conference-venue-logistics/",
+    "conference-finance-registration/",
+    "conference-attendee-experience/",
+    "conference-vibe-coder/",
     ".claude-plugin/",
     "setup/",
     "mock/",
