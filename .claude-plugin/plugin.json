@@ -1,0 +1,22 @@
+{
+  "name": "conference-team-skills",
+  "version": "1.0.0",
+  "description": "8 free Claude skills for conference organizing teams — General Chair, Program, Sponsorship, Marketing, Venue, Finance, Attendee Experience, and Vibe Coder (web/site builder).",
+  "author": {
+    "name": "MSG2AI",
+    "email": "bart@msg2ai.xyz",
+    "url": "https://msg2ai.xyz"
+  },
+  "homepage": "https://github.com/msg2ai/conference-team-skills",
+  "repository": "https://github.com/msg2ai/conference-team-skills",
+  "license": "MIT",
+  "keywords": [
+    "conference",
+    "events",
+    "team",
+    "planning",
+    "claude-skills",
+    "event-planning"
+  ],
+  "skills": "./"
+}
