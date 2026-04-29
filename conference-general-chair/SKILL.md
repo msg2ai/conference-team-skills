@@ -43,6 +43,7 @@ Build and maintain the full conference planning timeline.
 - Flag any compressed timelines or missing gaps
 - When ClickUp/Asana is connected, create a project for the event with tasks for each milestone — assign owners and set due dates automatically
 - When Google Calendar is connected, block milestone deadlines as all-day events with 1-week-prior reminders
+- **For long-running cadences, propose scheduling them.** A 9-month conference is too long to chase manually — if the organizer would benefit from a recurring check-in (e.g., "every Monday, pull sponsor pipeline + speaker confirms + budget delta and post a board-style status to `09-meeting-notes/`"), offer to set it up via the `/schedule` skill in Claude Code. One-time follow-ups also count: cleaning up post-event NPS analysis 1 week after the event, surfacing renewal conversations 8 weeks before the next year. The user has to confirm — never schedule autonomously.
 
 ### 2. Committee Coordinator
 Run the organizing committee like a chief of staff.
