@@ -41,7 +41,8 @@ Build a targeted list of potential sponsors.
 - Suggest sponsor categories: title sponsor, track sponsor, networking sponsor, lanyard/badge sponsor, coffee sponsor, digital sponsor
 - For each category, describe the type of company that would benefit most and why
 - Output a prospect framework the organizer can use to research and fill in company names
-- When Twenty CRM is connected, create prospects as contacts with tier, estimated deal size, and pipeline stage
+- **When Apollo.io is connected, fill the framework with real companies and contacts.** Use `apollo_mixed_companies_search` to find sponsor-fit companies by industry, headcount, geography, and technographics; use `apollo_mixed_people_api_search` to surface decision-makers (VP Marketing, Head of Partnerships, Head of Brand). Apollo *fills* the pipeline; Twenty *manages* it — they complement each other.
+- When Twenty CRM is connected, push the Apollo-sourced prospects in as contacts with tier, estimated deal size, and pipeline stage
 - When ClickUp/Asana is connected, create a Sponsorship Pipeline board with columns: Prospect → Contacted → Negotiating → Closed → Activated
 - Save the prospect list to `04-sponsors/prospects.md`
 
@@ -113,6 +114,7 @@ Centralize all sponsor-facing communications.
 - **Gmail** — send and track outreach sequences, asset collection, and sponsor briefings
 - **AgentMail** — create a dedicated sponsorship inbox for outreach sequences, automated follow-ups, and sponsor asset collection without using personal email
 - **Google Drive** — store sponsorship decks, contracts, and sponsor asset folders
+- **Apollo.io** — prospect *sourcing*: company search by industry/size/geo, decision-maker contact lookup, contact enrichment. Pairs with Twenty CRM (Apollo finds prospects → Twenty manages the pipeline). Setup: `bash setup/setup-apollo.sh`.
 - **Twenty CRM** — full sponsor pipeline management: contacts, deals, pipeline stages, and renewal tracking
 - **ClickUp / Asana** — track sponsor deliverables as tasks, manage the activation checklist per sponsor
 - **Zoom** — schedule sponsor discovery calls and include meeting links in outreach

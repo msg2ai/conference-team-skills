@@ -142,6 +142,7 @@ Ship sites that load fast and look like they cost money.
 - **Always check the shared Knowledge Base first.** Pull brand, content, sponsor list, agenda, tickets from the KB — never invent. Save every artifact (repo URL, deploy URL, screenshot) back to `11-web/{project}/`.
 - **Ship in public, ship fast.** A live preview URL beats a perfect local prototype every time. Push to GitHub and deploy to Vercel within the first 30 minutes — even if the site is half-finished. The preview link is the conversation.
 - **Default stack, no debate.** Next.js + Tailwind + Vercel + GitHub. Plain HTML for one-pagers. Don't introduce a new framework unless the organizer asks.
+- **Check current docs before generating framework code.** When Context7 is connected, query it for the current Next.js / Vercel / Tailwind / Stripe API surface before writing code — these libraries move fast and outdated patterns (e.g., legacy `pages/` routing, deprecated Vercel CLI flags, Tailwind class renames) ship bugs. If Context7 isn't available, default to the most recent stable major version and call out any assumption you're making.
 - **Match the brand without overthinking.** Pull the primary color and logo, use Inter or Fraunces if no font is specified, ship.
 - **Don't reinvent the form.** For lead capture and registration, use the simplest thing that works: Tally, Typeform embed, Vercel serverless function + a Google Sheet, or the existing event registration provider.
 - **Every PR gets a preview URL.** That's how the rest of the committee reviews. They don't pull the repo.
@@ -151,6 +152,7 @@ Ship sites that load fast and look like they cost money.
 
 - **Shared Knowledge Base (Google Drive / Dropbox / OneDrive / Notion)** — single source of truth for the event; this role pulls all web content from here. The first connector to set up.
 - **Firecrawl** — web scraping tool / skill used to bootstrap the Knowledge Base from an existing event website (and to research competitor sites for design inspiration)
+- **Context7** — current docs for Next.js, Vercel, Tailwind, Stripe, and any other library you reach for. Query it before generating framework code so you don't ship against a stale model of the API. Setup: `bash setup/setup-context7.sh`.
 - **Vercel CLI** — deploy previews, promote to production, manage domains, set env vars, view logs (`vercel`, `vercel --prod`, `vercel domains`, `vercel env`, `vercel logs`)
 - **GitHub CLI (`gh`)** — create repos, open PRs, manage issues, cut releases (`gh repo create`, `gh pr create`, `gh release create`)
 - **Node.js / npm / pnpm** — local dev, dependency install, build

@@ -413,17 +413,31 @@ bash setup/setup-all.sh
 | Google Drive | `setup-google-drive.sh` | Documents, contracts, templates | All skills |
 | Zoom | `setup-zoom.sh` | Meeting recordings, speaker briefings, tech checks | General Chair, Program, Venue, Attendee |
 | Canva | `setup-canva.sh` | Social graphics, decks, signage, infographics | Marketing, Sponsorship, Venue, Attendee |
+| Apollo.io | `setup-apollo.sh` | Prospect sourcing: company + contact search, enrichment (pairs with Twenty CRM) | Sponsorship |
 | Twenty CRM | `setup-twenty-crm.sh` | Contact/pipeline management, sponsor tracking | Sponsorship, Finance, Program, Venue, Attendee |
 | ClickUp | `setup-clickup.sh` | Project/task management, boards, checklists | All skills |
 | Asana | `setup-asana.sh` | Project/task management (alternative to ClickUp) | All skills |
-| Vercel | `setup-vercel.sh` | Event website deployment and management | Marketing |
+| Vercel | `setup-vercel.sh` | Event website deployment and management | Marketing, Vibe Coder |
+| Context7 | `setup-context7.sh` | Up-to-date docs for Next.js / Vercel / Tailwind / Stripe / any library — keeps generated framework code current | Vibe Coder |
 | Obsidian | `setup-obsidian.sh` | Knowledge base, notes, institutional memory | All skills |
 
 > **Note:** You don't need all integrations. Each skill works without any connectors — integrations just make them more powerful. Pick the ones your team already uses.
 
+### Pick one mail tool per session
+
+If you enable **more than one outbound mail tool** (e.g., Gmail *and* AgentMail at the same time), the model will sometimes pick the wrong `send_*` for the wrong context — outreach that should go through AgentMail ends up in your personal Gmail Sent folder. Pick one per profile, or split them across separate Claude Code profiles (`claude --settings ~/.claude/profiles/sales.json`). Same goes for overlapping CRMs (Twenty + Apollo are complementary; two pipeline-management CRMs at once will collide).
+
+### Cut down on permission prompts
+
+These skills make a lot of read-only calls (`*_search`, `*_list`, `*_get_*`). After your first day of use, run the built-in `/fewer-permission-prompts` skill in Claude Code — it scans your transcript, identifies the safe read-only patterns, and adds them to your `.claude/settings.json` allowlist so writes still prompt but reads don't.
+
+### Codex users
+
+If you drive these skills from **OpenAI Codex** instead of Claude Code, see [`setup/CODEX.md`](./setup/CODEX.md) for the equivalent `~/.codex/config.toml` blocks for every connector above. Same OAuth flow, same tools.
+
 ### In Claude.ai (browser)
 
-Go to **Settings** (bottom-left) → **Integrations** and connect Gmail, Google Calendar, Google Drive, Zoom, Canva, or Vercel directly. These are automatically available in Claude Code when you're logged into the same account.
+Go to **Settings** (bottom-left) → **Integrations** and connect Gmail, Google Calendar, Google Drive, Zoom, Canva, Vercel, Context7, or Apollo.io directly. These are automatically available in Claude Code when you're logged into the same account.
 
 ---
 
