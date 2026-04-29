@@ -110,7 +110,7 @@ function printPostInstall(skillsDir) {
   console.log("     (or pick individual scripts in " + path.join(skillsDir, "setup") + ")");
   console.log("");
   console.log("  4) See a real run — the FutureStack 2026 mock conference shows what");
-  console.log("     each skill produces, plus the merged event JSON for hello.msg2ai.xyz:");
+  console.log("     each skill produces:");
   console.log("       open " + path.join(skillsDir, "mock"));
   console.log("");
   console.log("  Open Claude Code and try a prompt like:");

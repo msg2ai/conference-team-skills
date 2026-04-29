@@ -49,8 +49,8 @@ git commit -m "Initial commit: 8 conference team Claude skills
 - Chief Experience Officer / Attendee Experience (AI Ambassador + ActionNotes)
 - Head of Web / Vibe Coder (Next.js + Vercel + GitHub web shipping)
 
-Each skill reads from a shared Knowledge Base (Drive / Dropbox / Notion),
-bootstraps via Firecrawl, and exports a slice of event.json for upload to hello.msg2ai.xyz.
+Each skill reads from a shared Knowledge Base (Drive / Dropbox / Notion)
+and bootstraps via Firecrawl from an existing event website.
 
 Built by MSG2AI — https://msg2ai.xyz"
 
