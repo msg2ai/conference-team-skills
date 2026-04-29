@@ -20,7 +20,6 @@ This is a fictional conference used to demonstrate all 8 conference team skills 
 | Website | https://futurestack2026.dev (deployed on Vercel) |
 | GitHub | msg2ai/futurestack2026-site |
 | Shared Knowledge Base | Google Drive — `FutureStack 2026/` (10-folder canonical structure) |
-| hello.msg2ai.xyz | uploaded — drives helpdesk, AI Ambassador, attendee app |
 
 ## Organizing Committee
 

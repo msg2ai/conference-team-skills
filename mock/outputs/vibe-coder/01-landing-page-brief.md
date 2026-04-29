@@ -12,7 +12,6 @@
 - **Hosting:** Vercel (production: `futurestack2026.dev`, preview per PR)
 - **Repo:** `msg2ai/futurestack2026-site` (default branch protected, dev branch for staging)
 - **Fonts:** `Fraunces` (display), `Inter` (body), self-hosted via `next/font`
-- **CMS:** content layer reads from `10-msg2ai-export/event.json` in the KB
 
 ## Content sourced from the Knowledge Base
 
@@ -20,7 +19,6 @@
 |---|---|
 | Event name, dates, location, theme | `01-event-brief/futurestack-2026.md` |
 | Brand color, logo, fonts | `02-brand-and-voice/brand.md` |
-| Speaker grid (5 confirmed) | `05-speakers/` + program slice of `event.json` |
 | Sponsor logo wall (4 confirmed tiers) | `04-sponsors/` + sponsorship slice |
 | Ticket tiers + price | `07-finance-registration/registration-tiers.md` |
 | Venue address + map | `06-venue-logistics/venue.md` |
@@ -68,7 +66,6 @@ app/
 ## What the Vibe Coder shipped today
 
 - ✅ Repo scaffolded: `msg2ai/futurestack2026-site` (private, branch protection on)
-- ✅ Initial commit pushed (8 routes, content layer wired to `event.json`)
 - ✅ Vercel preview live: `https://futurestack2026-site-git-main.vercel.app`
 - ✅ Custom domain pending DNS — `futurestack2026.dev` apex points to Vercel
 - ✅ OG image generation working (tested on LinkedIn + X share preview)
@@ -82,4 +79,3 @@ app/
 - → **General Chair (Sara):** Lighthouse scores logged, no risks
 - → **Sponsorship (James):** Sponsor microsite scaffolds for Title and Gold tiers ready for review
 - → **Finance (Amelia):** Stripe test keys swapped for production keys before early-bird launch (Jul 1)
-- → **Attendee Experience (Lena):** Web slice contributed to `10-msg2ai-export/event.json`

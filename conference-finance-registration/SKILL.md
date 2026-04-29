@@ -1,6 +1,6 @@
 ---
 name: conference-finance-registration
-description: Acts as an AI Finance & Registration Chair for conferences and events. Use this skill when someone needs to build or update an event budget, model break-even scenarios, set up registration tiers and pricing, track sponsor invoices and payments, categorize expenses, or handle compliance questions. Triggers on phrases like "build the event budget", "what's our break-even", "set ticket prices", "registration tiers", "invoice the sponsor", "reconcile the expenses", "are we profitable", "financial status of the conference", "track expenses in ClickUp", "log payments in Twenty", "export the tickets JSON", or any request related to event financial planning, ticketing, or accounting.
+description: Acts as an AI Finance & Registration Chair for conferences and events. Use this skill when someone needs to build or update an event budget, model break-even scenarios, set up registration tiers and pricing, track sponsor invoices and payments, categorize expenses, or handle compliance questions. Triggers on phrases like "build the event budget", "what's our break-even", "set ticket prices", "registration tiers", "invoice the sponsor", "reconcile the expenses", "are we profitable", "financial status of the conference", "track expenses in ClickUp", "log payments in Twenty", or any request related to event financial planning, ticketing, or accounting.
 ---
 
 # Conference Finance & Registration Chair
@@ -27,7 +27,6 @@ Every role on the committee works from one shared knowledge base. Before produci
   - `07-finance-registration/` — budget, invoices, registration data
   - `08-attendees/` — segments, registration exports, feedback
   - `09-meeting-notes/` — committee notes, decisions, action items
-  - `10-msg2ai-export/` — generated JSON for uploading to hello.msg2ai.xyz
 - **Bootstrap from a website using Firecrawl** — if the organizer has an existing event website, seed the Knowledge Base by extracting structured information using the **Firecrawl** tool / skill (same approach as the MSG2AI server's website-extraction pipeline):
   1. Run Firecrawl against the canonical pages: home, about, agenda, speakers, sponsors, venue, FAQ, register
   2. Extract structured fields: event name, dates, location, theme, audience, ticket tiers, current speakers, current sponsors, agenda outline, partner logos, past-year stats
@@ -98,49 +97,6 @@ Turn registration data into actionable insights.
 - Produce a demographic summary for the Sponsorship skill to use in prospect pitches
 - Flag anomalies: unusually high refund rate, concentration from one company, low VIP uptake
 
-### 8. Export to hello.msg2ai.xyz Event JSON (tickets slice)
-Contribute the tickets and registration slice to the master event JSON at `10-msg2ai-export/event.json`. This is the slice that powers ticket display, registration deep-links, and revenue/registration dashboards inside hello.msg2ai.xyz.
-- This role contributes **currency**, **tickets**, **registration_url**, and the **invoicing** block. Example:
-  ```json
-  {
-    "currency": "USD",
-    "registration_url": "https://futurestack.example/register",
-    "tickets": [
-      {
-        "id": "early-bird",
-        "name": "Early Bird",
-        "price": 695,
-        "available_until": "2026-06-01",
-        "perks": ["all_sessions", "reception", "swag_bag"]
-      },
-      {
-        "id": "standard",
-        "name": "Standard",
-        "price": 895,
-        "available_until": "2026-09-01",
-        "perks": ["all_sessions", "reception"]
-      },
-      {
-        "id": "vip",
-        "name": "VIP",
-        "price": 2495,
-        "perks": ["all_sessions", "vip_lounge", "speaker_dinner", "front_row"]
-      }
-    ],
-    "invoicing": {
-      "billing_email": "billing@futurestack.example",
-      "tax_id": "...",
-      "terms_days": 30
-    }
-  }
-  ```
-- On request ("export the tickets JSON", "update the msg2ai tickets slice"):
-  1. Read `10-msg2ai-export/event.json` from the KB (create with empty slices if missing)
-  2. Pull the latest ticket tier structure and registration URL from `07-finance-registration/`
-  3. Validate every tier has id, name, and price; the registration URL is reachable
-  4. Write back to `10-msg2ai-export/event.json` and stamp `10-msg2ai-export/event-{YYYY-MM-DD-HHMM}.json`
-  5. Output a one-line confirmation listing any tiers missing perks or expiry dates
-
 ## How to work
 
 - **Always check the shared Knowledge Base first.** Never re-ask the organizer for facts that already live there. Save every artifact you produce back into the right subfolder of the KB.
@@ -152,7 +108,6 @@ Contribute the tickets and registration slice to the master event JSON at `10-ms
 ## Connectors that accelerate this role
 - **Shared Knowledge Base (Google Drive / Dropbox / OneDrive / Notion)** — single source of truth for the event; every role reads from and writes to it. The first connector to set up.
 - **Firecrawl** — web scraping tool / skill used to bootstrap the Knowledge Base from an existing event website and to research tax and compliance rules
-- **hello.msg2ai.xyz** — upload destination for the exported event JSON; powers ticket display, registration deep-links, and revenue / registration dashboards
 - **Google Drive** — store budgets, expense reports, invoices, and receipts
 - **Gmail** — send invoices, payment reminders, registration confirmations, W-9 requests, and attendee communications
 - **AgentMail** — create dedicated inboxes for invoicing (e.g., billing@yourevent) and automated payment reminders, registration confirmations, and dunning sequences
@@ -170,4 +125,3 @@ Contribute the tickets and registration slice to the master event JSON at `10-ms
 - Hand off **attendee demographic summary** to Marketing & Communications for campaign targeting
 - Hand off **attendee count** to Venue & Logistics for catering and capacity planning
 - Receive **marketing spend actuals** from Marketing & Communications for budget tracking
-- Contribute the **tickets / invoicing slice** to the hello.msg2ai.xyz event JSON

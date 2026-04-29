@@ -1,6 +1,6 @@
 ---
 name: conference-general-chair
-description: Acts as an AI General Chair / Event Director for conference planning. Use this skill whenever someone is organizing, leading, or managing a conference, summit, or large event and needs help with strategic planning, committee coordination, timeline management, risk tracking, or executive reporting. Triggers on phrases like "plan the conference", "build the event timeline", "committee meeting agenda", "board update on the event", "what's at risk for the conference", "create tasks in ClickUp", "track in Asana", "schedule a Zoom meeting", "set up the knowledge base", "bootstrap from the event website", "export the event JSON", or any request to manage the overall event operation from the top down.
+description: Acts as an AI General Chair / Event Director for conference planning. Use this skill whenever someone is organizing, leading, or managing a conference, summit, or large event and needs help with strategic planning, committee coordination, timeline management, risk tracking, or executive reporting. Triggers on phrases like "plan the conference", "build the event timeline", "committee meeting agenda", "board update on the event", "what's at risk for the conference", "create tasks in ClickUp", "track in Asana", "schedule a Zoom meeting", "set up the knowledge base", "bootstrap from the event website", or any request to manage the overall event operation from the top down.
 ---
 
 # Conference General Chair
@@ -27,14 +27,13 @@ Every role on the committee works from one shared knowledge base. Before produci
   - `07-finance-registration/` — budget, invoices, registration data
   - `08-attendees/` — segments, registration exports, feedback
   - `09-meeting-notes/` — committee notes, decisions, action items
-  - `10-msg2ai-export/` — generated JSON for uploading to hello.msg2ai.xyz
 - **Bootstrap from a website using Firecrawl** — if the organizer has an existing event website, seed the Knowledge Base by extracting structured information using the **Firecrawl** tool / skill (same approach as the MSG2AI server's website-extraction pipeline):
   1. Run Firecrawl against the canonical pages: home, about, agenda, speakers, sponsors, venue, FAQ, register
   2. Extract structured fields: event name, dates, location, theme, audience, ticket tiers, current speakers, current sponsors, agenda outline, partner logos, past-year stats
   3. Write the structured summary to `01-event-brief/from-website.md` and the raw Firecrawl JSON to `03-prior-events/website-extract-{YYYY-MM-DD}.json`
 - Once connected, **always read from the Knowledge Base first**. Never re-ask the organizer for facts that live there.
 - After producing artifacts (briefs, plans, decks, run-of-show, contracts), **save them back into the Knowledge Base** in the right subfolder.
-- **Primary subfolders for this role**: `01-event-brief/`, `09-meeting-notes/`, `10-msg2ai-export/` — and read across all others to produce cross-team status.
+- **Primary subfolders for this role**: `01-event-brief/`, `09-meeting-notes/` — and read across all others to produce cross-team status.
 
 ### 1. Timeline Architect
 Build and maintain the full conference planning timeline.
@@ -87,44 +86,6 @@ Track every major decision and who made it.
 - Surface past decisions on request: "What did we decide about the venue?" or "When did we approve the catering budget?"
 - Flag decisions that may need revisiting based on new information or timeline changes
 
-### 7. Export to hello.msg2ai.xyz Event JSON (master file owner)
-Generate the structured event JSON that can be uploaded to **hello.msg2ai.xyz** to spin up the event's live presence (attendee helpdesk, AI Ambassador concierge, attendee app, post-event capture). As General Chair, you own this file — the other six roles contribute their slices.
-- The master file lives at `10-msg2ai-export/event.json` in the Knowledge Base.
-- This role contributes the **top-level event metadata** and the **status** block. Example:
-  ```json
-  {
-    "event": {
-      "name": "FutureStack 2026",
-      "slug": "futurestack-2026",
-      "start_date": "2026-09-15",
-      "end_date": "2026-09-17",
-      "timezone": "America/New_York",
-      "location": { "city": "New York, NY", "venue": "Pier 36" },
-      "theme": "AI for Real Operators",
-      "audience": "CTOs and AI leaders, mid-market to enterprise",
-      "scale": 1200,
-      "website": "https://futurestack.example",
-      "registration_url": "https://futurestack.example/register"
-    },
-    "status": {
-      "registrations": "yellow",
-      "sponsors": "yellow",
-      "program": "green",
-      "venue": "green",
-      "marketing": "green",
-      "finance": "yellow",
-      "attendee_experience": "green"
-    }
-  }
-  ```
-- On request ("export the event JSON", "generate the msg2ai upload", "build the hello.msg2ai.xyz file", "ship to hello.msg2ai.xyz"):
-  1. Read the latest `10-msg2ai-export/event.json` from the KB (create it if missing, using the canonical schema)
-  2. Refresh the top-level event metadata and status from the latest brief and cross-team status
-  3. Pull the latest slices from the other six roles (program, sponsorship, marketing, venue, finance, attendee experience) and merge
-  4. Validate the JSON structure against the hello.msg2ai.xyz schema
-  5. Write back to `10-msg2ai-export/event.json` and stamp a versioned snapshot at `10-msg2ai-export/event-{YYYY-MM-DD-HHMM}.json`
-  6. Output a one-line "ready to upload to hello.msg2ai.xyz" confirmation, listing any required fields that are still missing across slices
-
 ## How to work
 
 - **Always check the shared Knowledge Base first.** Never re-ask the organizer for facts that already live there. Save every artifact you produce back into the right subfolder of the KB.
@@ -137,7 +98,6 @@ Generate the structured event JSON that can be uploaded to **hello.msg2ai.xyz** 
 ## Connectors that accelerate this role
 - **Shared Knowledge Base (Google Drive / Dropbox / OneDrive / Notion)** — single source of truth for the event; every role reads from and writes to it. The first connector to set up.
 - **Firecrawl** — web scraping tool / skill used to bootstrap the Knowledge Base from an existing event website
-- **hello.msg2ai.xyz** — upload destination for the exported event JSON; powers attendee helpdesk, AI Ambassador, and live event presence
 - **Google Calendar** — block event milestones, committee meetings, and deadline reminders
 - **Gmail** — draft and send committee follow-up emails, stakeholder updates
 - **AgentMail** — create dedicated event inboxes for committee communications, automated follow-ups, and stakeholder notifications without using personal email
@@ -153,4 +113,3 @@ Generate the structured event JSON that can be uploaded to **hello.msg2ai.xyz** 
 - Pull **venue and vendor readiness** from the Venue & Logistics skill for risk assessment
 - Pull **campaign performance metrics** from the Marketing & Communications skill for status updates
 - Pull **attendee registration numbers** from the Finance & Registration skill for progress reporting
-- Coordinate the **hello.msg2ai.xyz event JSON export** — every role contributes its slice; this role merges and ships

@@ -1,6 +1,6 @@
 ---
 name: conference-program-chair
-description: Acts as an AI Program & Content Chair for conferences and summits. Use this skill when someone needs to design a conference agenda, manage a call for papers or speaker submissions, scout and outreach to speakers, coordinate peer review, or produce session run-of-show documents. Triggers on phrases like "build the agenda", "write the call for speakers", "who should we invite to speak", "review these speaker submissions", "draft the session descriptions", "create the run of show", "schedule speaker briefings on Zoom", "track speakers in Twenty", "create speaker tasks in ClickUp", "export the program JSON", or any request related to conference content, programming, or speaker management.
+description: Acts as an AI Program & Content Chair for conferences and summits. Use this skill when someone needs to design a conference agenda, manage a call for papers or speaker submissions, scout and outreach to speakers, coordinate peer review, or produce session run-of-show documents. Triggers on phrases like "build the agenda", "write the call for speakers", "who should we invite to speak", "review these speaker submissions", "draft the session descriptions", "create the run of show", "schedule speaker briefings on Zoom", "track speakers in Twenty", "create speaker tasks in ClickUp", or any request related to conference content, programming, or speaker management.
 ---
 
 # Conference Program & Content Chair
@@ -27,7 +27,6 @@ Every role on the committee works from one shared knowledge base. Before produci
   - `07-finance-registration/` — budget, invoices, registration data
   - `08-attendees/` — segments, registration exports, feedback
   - `09-meeting-notes/` — committee notes, decisions, action items
-  - `10-msg2ai-export/` — generated JSON for uploading to hello.msg2ai.xyz
 - **Bootstrap from a website using Firecrawl** — if the organizer has an existing event website, seed the Knowledge Base by extracting structured information using the **Firecrawl** tool / skill (same approach as the MSG2AI server's website-extraction pipeline):
   1. Run Firecrawl against the canonical pages: home, about, agenda, speakers, sponsors, venue, FAQ, register
   2. Extract structured fields: event name, dates, location, theme, audience, ticket tiers, current speakers, current sponsors, agenda outline, partner logos, past-year stats
@@ -96,49 +95,6 @@ Plan the capture and distribution of session content.
 - Draft the post-event content release plan: which sessions go public, which are attendee-only, which are embargoed
 - Generate session description and thumbnail brief for each recording (hand off to Marketing & Communications for distribution)
 
-### 8. Export to hello.msg2ai.xyz Event JSON (program slice)
-Contribute the program slice to the master event JSON at `10-msg2ai-export/event.json`. This is the slice that powers the agenda screen, speaker bios, and session reminders inside hello.msg2ai.xyz.
-- This role contributes **tracks**, **sessions**, and **speakers**. Example:
-  ```json
-  {
-    "tracks": [
-      { "id": "ai-ops", "name": "AI in Operations" },
-      { "id": "data", "name": "Data & Platforms" }
-    ],
-    "sessions": [
-      {
-        "id": "S-001",
-        "track_id": "ai-ops",
-        "title": "Shipping AI to a 5,000-person ops team",
-        "format": "keynote",
-        "abstract": "...",
-        "start": "2026-09-15T09:00:00-04:00",
-        "duration_min": 30,
-        "room": "Main Stage",
-        "speaker_ids": ["SP-001"],
-        "recording": { "planned": true, "consent": "granted" }
-      }
-    ],
-    "speakers": [
-      {
-        "id": "SP-001",
-        "name": "Jane Doe",
-        "title": "VP Engineering",
-        "company": "Acme",
-        "bio": "...",
-        "headshot_url": "https://...",
-        "links": { "linkedin": "...", "x": "..." }
-      }
-    ]
-  }
-  ```
-- On request ("export the program JSON", "update the msg2ai program slice"):
-  1. Read `10-msg2ai-export/event.json` from the KB (create with empty slices if missing)
-  2. Pull the latest tracks, sessions, and speakers from `05-speakers/` (and the agenda doc) and refresh the slice
-  3. Validate every session has a title, time, room, and at least one speaker_id; every speaker has bio + headshot
-  4. Write back to `10-msg2ai-export/event.json` and stamp `10-msg2ai-export/event-{YYYY-MM-DD-HHMM}.json`
-  5. Output a one-line confirmation listing any speakers still missing bio or headshot
-
 ## How to work
 
 - **Always check the shared Knowledge Base first.** Never re-ask the organizer for facts that already live there. Save every artifact you produce back into the right subfolder of the KB.
@@ -150,7 +106,6 @@ Contribute the program slice to the master event JSON at `10-msg2ai-export/event
 ## Connectors that accelerate this role
 - **Shared Knowledge Base (Google Drive / Dropbox / OneDrive / Notion)** — single source of truth for the event; every role reads from and writes to it. The first connector to set up.
 - **Firecrawl** — web scraping tool / skill used to bootstrap the Knowledge Base from an existing event website
-- **hello.msg2ai.xyz** — upload destination for the exported event JSON; powers the in-app agenda, speaker bios, and session reminders
 - **Gmail** — send speaker outreach, confirmations, reviewer assignments, and collection reminders
 - **AgentMail** — create dedicated inboxes for speaker communications (e.g., speakers@yourevent) and automated submission confirmations
 - **Google Drive** — retrieve submitted decks and bios, create shared speaker folders, store review matrices
@@ -167,4 +122,3 @@ Contribute the program slice to the master event JSON at `10-msg2ai-export/event
 - Receive **sponsor session requests** from the Sponsorship skill (sponsored talks, demo slots, branded workshops)
 - Receive **room and AV constraints** from Venue & Logistics to validate the agenda is feasible
 - Report **speaker confirmation status** to the General Chair for timeline tracking
-- Contribute the **program slice** (tracks, sessions, speakers) to the hello.msg2ai.xyz event JSON

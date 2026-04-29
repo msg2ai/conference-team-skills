@@ -29,7 +29,6 @@ Every role on the committee works from one shared knowledge base. Before produci
   - `07-finance-registration/` — budget, invoices, registration data
   - `08-attendees/` — segments, registration exports, feedback
   - `09-meeting-notes/` — committee notes, decisions, action items
-  - `10-msg2ai-export/` — generated JSON for uploading to hello.msg2ai.xyz
   - `11-web/` — repos, deployment configs, screenshots, web copy (this role's home)
 - **Bootstrap from a website using Firecrawl** — if the organizer has an existing event website, seed the Knowledge Base by extracting structured information using the **Firecrawl** tool / skill (same approach as the MSG2AI server's website-extraction pipeline):
   1. Run Firecrawl against the canonical pages: home, about, agenda, speakers, sponsors, venue, FAQ, register
@@ -62,7 +61,7 @@ Scaffold and ship a full event website with multiple pages and dynamic content.
   - `/register` — ticket tiers + checkout link (or embedded provider)
   - `/press` — press kit, logos, fact sheet
   - `/faq` — pre-event Q&A
-- Pull all content from the Knowledge Base — sponsors from `04-sponsors/`, speakers from `05-speakers/`, agenda from the program slice, tickets from `07-finance-registration/`. If `10-msg2ai-export/event.json` exists, prefer that — it's the canonical merged source.
+- Pull all content from the Knowledge Base — sponsors from `04-sponsors/`, speakers from `05-speakers/`, agenda from the program slice, tickets from `07-finance-registration/`.
 - Use Next.js Server Components for content, Client Components for any interactive bits (filters, modals)
 - Add OG image generation (`/app/opengraph-image.tsx`) for shareable links
 - Add a sitemap and `robots.txt`
@@ -79,7 +78,7 @@ Build per-sponsor microsites or co-branded pages.
 Ship the registration page that converts.
 - If using a 3rd-party provider (Eventbrite / Tito / Hopin / Splash), wire deep-links and embeds
 - If self-hosting tickets, scaffold a Stripe Checkout flow with Vercel serverless functions and a `tickets` Postgres or KV table on Vercel
-- Pull tier structure and pricing from the Finance & Registration slice of `event.json`
+- Pull tier structure and pricing from `07-finance-registration/` in the Knowledge Base
 - Honor early-bird deadlines automatically (server-side time check)
 - Generate confirmation emails (hand off send to Gmail / AgentMail)
 - Add coupon-code support if requested
@@ -124,7 +123,6 @@ Sometimes the right answer is one file.
 ### 9. Content Sync from the Knowledge Base
 Keep the live website in sync with the KB without manual copy-paste.
 - Build a `scripts/sync-from-kb.ts` that:
-  - Reads `10-msg2ai-export/event.json` (or watches Google Drive / Dropbox)
   - Generates typed TS/JSON content files used by Next.js pages
   - Triggers a Vercel deploy when the JSON changes (via Vercel Deploy Hook)
 - This means: Sponsorship updates the sponsor list in the KB → the live site updates automatically. No engineer in the loop.
@@ -139,32 +137,6 @@ Ship sites that load fast and look like they cost money.
 - Add `<noscript>` fallbacks for the registration CTA
 - Test on a real iPhone Safari before declaring done
 
-### 11. Export to hello.msg2ai.xyz Event JSON (web slice)
-Contribute the web/links slice to the master event JSON at `10-msg2ai-export/event.json`. This is the slice that powers in-app links, deep-links from the helpdesk, and quick redirects.
-- This role contributes a **web** block with the canonical URLs. Example:
-  ```json
-  {
-    "web": {
-      "primary_domain": "https://futurestack2026.com",
-      "registration_url": "https://futurestack2026.com/register",
-      "press_kit_url": "https://futurestack2026.com/press",
-      "agenda_url": "https://futurestack2026.com/agenda",
-      "speakers_url": "https://futurestack2026.com/speakers",
-      "sponsors_url": "https://futurestack2026.com/sponsors",
-      "venue_url": "https://futurestack2026.com/venue",
-      "faq_url": "https://futurestack2026.com/faq",
-      "vercel_project_id": "prj_...",
-      "github_repo": "msg2ai/futurestack2026-site"
-    }
-  }
-  ```
-- On request ("export the web JSON", "update the msg2ai web slice"):
-  1. Read `10-msg2ai-export/event.json` from the KB (create with empty slices if missing)
-  2. Pull the latest deployed URLs from Vercel (`vercel inspect`) and the canonical domain
-  3. Validate every URL returns 200
-  4. Write back to `10-msg2ai-export/event.json` and stamp `10-msg2ai-export/event-{YYYY-MM-DD-HHMM}.json`
-  5. Output a one-line "ready to upload to hello.msg2ai.xyz" confirmation, listing any URLs that returned non-200
-
 ## How to work
 
 - **Always check the shared Knowledge Base first.** Pull brand, content, sponsor list, agenda, tickets from the KB — never invent. Save every artifact (repo URL, deploy URL, screenshot) back to `11-web/{project}/`.
@@ -173,13 +145,12 @@ Contribute the web/links slice to the master event JSON at `10-msg2ai-export/eve
 - **Match the brand without overthinking.** Pull the primary color and logo, use Inter or Fraunces if no font is specified, ship.
 - **Don't reinvent the form.** For lead capture and registration, use the simplest thing that works: Tally, Typeform embed, Vercel serverless function + a Google Sheet, or the existing event registration provider.
 - **Every PR gets a preview URL.** That's how the rest of the committee reviews. They don't pull the repo.
-- **Names and slugs.** Use kebab-case slugs from the event slug in `event.json`. Repo: `{event-slug}-site`. Domain: prefer `{event-name}.com` apex; fall back to `{event-slug}.msg2ai.xyz` if the apex isn't ready yet.
+- **Names and slugs.** Use kebab-case slugs derived from the event name (e.g., "FutureStack 2026" → `futurestack-2026`). Repo: `{event-slug}-site`. Domain: prefer `{event-name}.com` apex; fall back to a Vercel preview URL if the apex isn't ready yet.
 
 ## Connectors that accelerate this role
 
 - **Shared Knowledge Base (Google Drive / Dropbox / OneDrive / Notion)** — single source of truth for the event; this role pulls all web content from here. The first connector to set up.
 - **Firecrawl** — web scraping tool / skill used to bootstrap the Knowledge Base from an existing event website (and to research competitor sites for design inspiration)
-- **hello.msg2ai.xyz** — upload destination for the exported event JSON; this role contributes the web links slice
 - **Vercel CLI** — deploy previews, promote to production, manage domains, set env vars, view logs (`vercel`, `vercel --prod`, `vercel domains`, `vercel env`, `vercel logs`)
 - **GitHub CLI (`gh`)** — create repos, open PRs, manage issues, cut releases (`gh repo create`, `gh pr create`, `gh release create`)
 - **Node.js / npm / pnpm** — local dev, dependency install, build
@@ -198,4 +169,3 @@ Contribute the web/links slice to the master event JSON at `10-msg2ai-export/eve
 - Hand off **the canonical deployed URL** to all other skills so it's used consistently in outreach, sponsor decks, and confirmations
 - Hand off **OG images and shareable preview cards** to Marketing for social posts
 - Report **deployment status, domain readiness, and Lighthouse scores** to the General Chair for the risk register
-- Contribute the **web slice** to the hello.msg2ai.xyz event JSON

@@ -1,6 +1,6 @@
 ---
 name: conference-attendee-experience
-description: Acts as an AI Attendee Experience Lead for conferences and events. Use this skill when someone needs to design the on-site attendee journey, set up a concierge or helpdesk for attendees, enable networking between attendees, build a session reminder system, capture real-time feedback, or generate a post-event recap and NPS report. Triggers on phrases like "how do attendees get help", "set up the event helpdesk", "attendee communication", "networking for attendees", "session reminders", "event concierge", "attendee feedback", "post-event NPS", "what are attendees asking", "configure AI Ambassador", "set up ActionNotes", "export the attendee JSON", or any request related to the on-site or digital experience of conference attendees.
+description: Acts as an AI Attendee Experience Lead for conferences and events. Use this skill when someone needs to design the on-site attendee journey, set up a concierge or helpdesk for attendees, enable networking between attendees, build a session reminder system, capture real-time feedback, or generate a post-event recap and NPS report. Triggers on phrases like "how do attendees get help", "set up the event helpdesk", "attendee communication", "networking for attendees", "session reminders", "event concierge", "attendee feedback", "post-event NPS", "what are attendees asking", "configure AI Ambassador", "set up ActionNotes", or any request related to the on-site or digital experience of conference attendees.
 ---
 
 # Conference Attendee Experience Lead
@@ -31,7 +31,6 @@ Every role on the committee works from one shared knowledge base. Before produci
   - `07-finance-registration/` — budget, invoices, registration data
   - `08-attendees/` — segments, registration exports, feedback
   - `09-meeting-notes/` — committee notes, decisions, action items
-  - `10-msg2ai-export/` — generated JSON for uploading to hello.msg2ai.xyz
 - **Bootstrap from a website using Firecrawl** — if the organizer has an existing event website, seed the Knowledge Base by extracting structured information using the **Firecrawl** tool / skill (same approach as the MSG2AI server's website-extraction pipeline):
   1. Run Firecrawl against the canonical pages: home, about, agenda, speakers, sponsors, venue, FAQ, register
   2. Extract structured fields: event name, dates, location, theme, audience, ticket tiers, current speakers, current sponsors, agenda outline, partner logos, past-year stats
@@ -114,53 +113,6 @@ Design the full attendee experience from arrival to departure.
 - Identify friction points and propose solutions (e.g., registration bottleneck → staggered entry times + pre-printed badges)
 - When ClickUp/Asana is connected, create a journey-map project with tasks per touchpoint for the ops team to execute
 
-### 10. Export to hello.msg2ai.xyz Event JSON (attendee experience slice)
-Contribute the attendee experience slice to the master event JSON at `10-msg2ai-export/event.json`. This is the most important slice for the live attendee-facing app — it powers the helpdesk, AI Ambassador concierge, journey, reminders, and accessibility info.
-- This role contributes the **attendee_experience** block. Example:
-  ```json
-  {
-    "attendee_experience": {
-      "helpdesk": {
-        "channels": ["sms", "whatsapp"],
-        "languages": ["en", "es", "fr", "de", "ja", "ko", "pt", "zh"],
-        "phone_number": "+1-555-EVENT-AI",
-        "human_escalation": "+1-555-OPS-LINE"
-      },
-      "ai_ambassador": {
-        "enabled": true,
-        "voice": "warm-professional",
-        "fallback_to_human": true,
-        "response_sla_seconds": 30
-      },
-      "faqs": [
-        { "id": "F-001", "q": "Where is the keynote?", "a": "Main Stage, 9am sharp." },
-        { "id": "F-002", "q": "What's the Wi-Fi password?", "a": "FUTURESTACK2026" }
-      ],
-      "journey_steps": [
-        { "phase": "arrival", "touchpoint": "registration", "channel": "in-person", "minutes_before_event": -30 },
-        { "phase": "morning", "touchpoint": "keynote", "channel": "sms_reminder", "minutes_before_event": 15 }
-      ],
-      "session_reminders": { "lead_times_min": [1440, 60, 15] },
-      "networking": { "opt_in": true, "format": "whatsapp_carousel", "matches_per_attendee": 3 },
-      "nps": { "send_at": "event_close+2h", "channel": "whatsapp" },
-      "accessibility": {
-        "wheelchair": true,
-        "hearing_loop": true,
-        "quiet_room": true,
-        "lactation_room": true,
-        "prayer_room": true
-      }
-    }
-  }
-  ```
-- On request ("export the attendee JSON", "update the msg2ai attendee experience slice", "configure AI Ambassador for upload"):
-  1. Read `10-msg2ai-export/event.json` from the KB (create with empty slices if missing)
-  2. Pull the latest FAQ, journey, helpdesk config, and accessibility info from `08-attendees/`
-  3. Pull wayfinding info from the venue slice (already in event.json) to enrich helpdesk responses
-  4. Validate languages, phone numbers, and required FAQ entries are present
-  5. Write back to `10-msg2ai-export/event.json` and stamp `10-msg2ai-export/event-{YYYY-MM-DD-HHMM}.json`
-  6. Output a one-line "ready to upload to hello.msg2ai.xyz" confirmation, listing any missing FAQs, journey steps, or escalation contacts
-
 ## How to work
 
 - **Always check the shared Knowledge Base first.** Never re-ask the organizer for facts that already live there. Save every artifact you produce back into the right subfolder of the KB.
@@ -173,7 +125,6 @@ Contribute the attendee experience slice to the master event JSON at `10-msg2ai-
 ## Connectors that power this role
 - **Shared Knowledge Base (Google Drive / Dropbox / OneDrive / Notion)** — single source of truth for the event; every role reads from and writes to it. The first connector to set up.
 - **Firecrawl** — web scraping tool / skill used to bootstrap the Knowledge Base from an existing event website and to research venue-area info, accessibility, and local services
-- **hello.msg2ai.xyz** — upload destination for the exported event JSON; powers the live attendee helpdesk, AI Ambassador concierge, journey, reminders, and accessibility
 - **AI Ambassador** (ai-ambassador.xyz) — SMS and WhatsApp attendee concierge, helpdesk, carousel, reminders, NPS delivery
 - **ActionNotes** — meeting capture for post-event debriefs, speaker briefings, and committee retrospectives
 - **Gmail** — send pre/post event attendee communications, welcome emails, and follow-ups
@@ -194,4 +145,3 @@ Contribute the attendee experience slice to the master event JSON at `10-msg2ai-
 - Hand off **complaint themes and operational issues** to the General Chair for risk register updates
 - Hand off **attendee satisfaction data** to the General Chair for board briefings
 - Receive **registration count and attendee demographics** from Finance & Registration for personalized communications
-- Contribute the **attendee experience slice** to the hello.msg2ai.xyz event JSON

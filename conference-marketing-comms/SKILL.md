@@ -1,6 +1,6 @@
 ---
 name: conference-marketing-comms
-description: Acts as an AI Marketing & Communications lead for conferences and events. Use this skill when someone needs to build a pre-event marketing calendar, write emails or social posts to drive registrations, develop attendee personas, draft press releases or media pitches, or create post-event content. Triggers on phrases like "market the conference", "write the email campaign", "build the social calendar", "draft a press release", "how do we get more registrations", "post-event recap", "write the announcement", "design social graphics in Canva", "publish the event page on Vercel", "create marketing tasks in ClickUp", "export the marketing JSON", or any task related to event promotion, audience acquisition, or communications.
+description: Acts as an AI Marketing & Communications lead for conferences and events. Use this skill when someone needs to build a pre-event marketing calendar, write emails or social posts to drive registrations, develop attendee personas, draft press releases or media pitches, or create post-event content. Triggers on phrases like "market the conference", "write the email campaign", "build the social calendar", "draft a press release", "how do we get more registrations", "post-event recap", "write the announcement", "design social graphics in Canva", "publish the event page on Vercel", "create marketing tasks in ClickUp", or any task related to event promotion, audience acquisition, or communications.
 ---
 
 # Conference Marketing & Communications
@@ -27,7 +27,6 @@ Every role on the committee works from one shared knowledge base. Before produci
   - `07-finance-registration/` — budget, invoices, registration data
   - `08-attendees/` — segments, registration exports, feedback
   - `09-meeting-notes/` — committee notes, decisions, action items
-  - `10-msg2ai-export/` — generated JSON for uploading to hello.msg2ai.xyz
 - **Bootstrap from a website using Firecrawl** — if the organizer has an existing event website, seed the Knowledge Base by extracting structured information using the **Firecrawl** tool / skill (same approach as the MSG2AI server's website-extraction pipeline):
   1. Run Firecrawl against the canonical pages: home, about, agenda, speakers, sponsors, venue, FAQ, register
   2. Extract structured fields: event name, dates, location, theme, audience, ticket tiers, current speakers, current sponsors, agenda outline, partner logos, past-year stats
@@ -104,41 +103,6 @@ Build a research base to inform marketing decisions.
 - When Obsidian is connected, maintain a Marketing Research vault with notes on competitor events, industry trends, audience insights, and content performance — linked for easy discovery
 - Build a swipe file of effective event marketing examples for future reference
 
-### 9. Export to hello.msg2ai.xyz Event JSON (marketing slice)
-Contribute the marketing slice to the master event JSON at `10-msg2ai-export/event.json`. This is the slice that powers the in-app branding, links to the website and registration, and the attendee-facing tagline / press kit.
-- This role contributes the **marketing** block. Example:
-  ```json
-  {
-    "marketing": {
-      "tagline": "AI for Real Operators.",
-      "elevator_pitch": "Three days of how leading teams actually ship AI in production.",
-      "brand": {
-        "primary_color": "#c94a2a",
-        "secondary_color": "#1a2b4a",
-        "logo_url": "https://...",
-        "logo_dark_url": "https://..."
-      },
-      "social_links": {
-        "x": "https://x.com/futurestack",
-        "linkedin": "https://linkedin.com/company/futurestack",
-        "instagram": "https://instagram.com/futurestack"
-      },
-      "press_kit_url": "https://futurestack.example/press",
-      "hashtag": "#FutureStack2026",
-      "campaign_calendar": [
-        { "date": "2026-06-01", "channel": "email", "beat": "early_bird_open" },
-        { "date": "2026-08-15", "channel": "social", "beat": "keynote_announcement" }
-      ]
-    }
-  }
-  ```
-- On request ("export the marketing JSON", "update the msg2ai marketing slice"):
-  1. Read `10-msg2ai-export/event.json` from the KB (create with empty slices if missing)
-  2. Pull the latest brand assets, links, and campaign beats from `02-brand-and-voice/`
-  3. Validate logo URLs resolve and primary brand color is set
-  4. Write back to `10-msg2ai-export/event.json` and stamp `10-msg2ai-export/event-{YYYY-MM-DD-HHMM}.json`
-  5. Output a one-line confirmation listing any missing brand assets (logo, colors, social links)
-
 ## How to work
 
 - **Always check the shared Knowledge Base first.** Never re-ask the organizer for facts that already live there. Save every artifact you produce back into the right subfolder of the KB.
@@ -151,7 +115,6 @@ Contribute the marketing slice to the master event JSON at `10-msg2ai-export/eve
 ## Connectors that accelerate this role
 - **Shared Knowledge Base (Google Drive / Dropbox / OneDrive / Notion)** — single source of truth for the event; every role reads from and writes to it. The first connector to set up.
 - **Firecrawl** — web scraping tool / skill used to bootstrap the Knowledge Base from an existing event website and to research competitor events and industry trends
-- **hello.msg2ai.xyz** — upload destination for the exported event JSON; powers in-app branding, links to website/registration, attendee-facing tagline and press kit
 - **Gmail** — send email campaigns and media pitches directly
 - **AgentMail** — create dedicated campaign inboxes for email blasts, drip sequences, and media outreach with built-in tracking
 - **Google Drive** — retrieve brand assets, past templates, attendee lists, and store finalized graphics
@@ -171,4 +134,3 @@ Contribute the marketing slice to the master event JSON at `10-msg2ai-export/eve
 - Hand off **campaign performance metrics** to the General Chair for status reporting
 - Hand off **event website URL and registration link** to all other skills for inclusion in outreach emails
 - Receive **post-event NPS and attendee feedback highlights** from Attendee Experience for recap content and testimonials
-- Contribute the **marketing slice** to the hello.msg2ai.xyz event JSON

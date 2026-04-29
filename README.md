@@ -90,8 +90,7 @@ event-knowledge-base/
 ├── 06-venue-logistics/    ← venue contracts, vendors, run-of-show
 ├── 07-finance-registration/  ← budget, invoices, registration data
 ├── 08-attendees/          ← segments, registration exports, feedback
-├── 09-meeting-notes/      ← committee notes, decisions, action items
-└── 10-msg2ai-export/      ← generated JSON for hello.msg2ai.xyz
+└── 09-meeting-notes/      ← committee notes, decisions, action items
 ```
 
 ### Bootstrap from an existing website (Firecrawl)
@@ -408,7 +407,6 @@ bash setup/setup-all.sh
 |---|---|---|---|
 | **Shared Knowledge Base** | (Google Drive / Dropbox / OneDrive / Notion) | Single source of truth — every skill reads & writes here. **Set up first.** | All skills |
 | **Firecrawl** | `setup-firecrawl.sh` | Bootstrap the Knowledge Base from an existing event website; competitor & venue research | All skills |
-| **hello.msg2ai.xyz** | (no setup) | Upload destination for the exported event JSON; powers helpdesk, AI Ambassador, attendee app | All skills |
 | AgentMail | `setup-agentmail.sh` | AI-native email inboxes for outreach, invoicing, notifications | All skills |
 | Gmail | `setup-gmail.sh` | Send outreach, confirmations, invoices | All skills |
 | Google Calendar | `setup-google-calendar.sh` | Event milestones, schedule calls | General Chair, Program, Venue, Finance |

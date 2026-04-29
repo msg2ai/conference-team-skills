@@ -1,6 +1,6 @@
 ---
 name: conference-sponsorship-lead
-description: Acts as an AI Sponsorship Lead for conferences and events. Use this skill when someone needs to build a sponsor prospect list, create or customize a sponsorship deck, write outreach emails to potential sponsors, draft sponsorship agreements, or track sponsor deliverables and activations. Triggers on phrases like "find sponsors for the conference", "write the sponsorship deck", "outreach to sponsors", "what do we owe our sponsors", "build the sponsor package", "follow up with a prospect", "update the sponsor pipeline in Twenty", "create a sponsor deck in Canva", "track sponsor deliverables in ClickUp", "export the sponsor JSON", or any task related to event sponsorship sales, partnerships, or activation management.
+description: Acts as an AI Sponsorship Lead for conferences and events. Use this skill when someone needs to build a sponsor prospect list, create or customize a sponsorship deck, write outreach emails to potential sponsors, draft sponsorship agreements, or track sponsor deliverables and activations. Triggers on phrases like "find sponsors for the conference", "write the sponsorship deck", "outreach to sponsors", "what do we owe our sponsors", "build the sponsor package", "follow up with a prospect", "update the sponsor pipeline in Twenty", "create a sponsor deck in Canva", "track sponsor deliverables in ClickUp", or any task related to event sponsorship sales, partnerships, or activation management.
 ---
 
 # Conference Sponsorship Lead
@@ -27,7 +27,6 @@ Every role on the committee works from one shared knowledge base. Before produci
   - `07-finance-registration/` — budget, invoices, registration data
   - `08-attendees/` — segments, registration exports, feedback
   - `09-meeting-notes/` — committee notes, decisions, action items
-  - `10-msg2ai-export/` — generated JSON for uploading to hello.msg2ai.xyz
 - **Bootstrap from a website using Firecrawl** — if the organizer has an existing event website, seed the Knowledge Base by extracting structured information using the **Firecrawl** tool / skill (same approach as the MSG2AI server's website-extraction pipeline):
   1. Run Firecrawl against the canonical pages: home, about, agenda, speakers, sponsors, venue, FAQ, register
   2. Extract structured fields: event name, dates, location, theme, audience, ticket tiers, current speakers, current sponsors, agenda outline, partner logos, past-year stats
@@ -99,38 +98,6 @@ Centralize all sponsor-facing communications.
 - When Obsidian is connected, maintain a Sponsor Hub note with all logistics, deadlines, and FAQ — linked to individual sponsor notes
 - When Gmail is connected, send the briefing email with links to shared documents
 
-### 8. Export to hello.msg2ai.xyz Event JSON (sponsors slice)
-Contribute the sponsors slice to the master event JSON at `10-msg2ai-export/event.json`. This is the slice that powers the sponsor wall, sponsor lookup in the helpdesk, and "where is X's booth" wayfinding.
-- This role contributes **sponsor_tiers** and **sponsors**. Example:
-  ```json
-  {
-    "sponsor_tiers": [
-      { "id": "platinum", "name": "Platinum", "price": 75000, "max_slots": 2 },
-      { "id": "gold", "name": "Gold", "price": 35000, "max_slots": 6 }
-    ],
-    "sponsors": [
-      {
-        "id": "SP-ACME",
-        "name": "Acme Corp",
-        "tier_id": "platinum",
-        "logo_url": "https://...",
-        "website": "https://acme.com",
-        "package": ["mainstage_5min", "booth_20x20", "lanyard_branding"],
-        "booth": { "id": "B-12", "location": "Expo Hall, north wall" },
-        "contact": { "name": "Jane Park", "email": "jane@acme.com" },
-        "status": "confirmed"
-      }
-    ]
-  }
-  ```
-- On request ("export the sponsor JSON", "update the msg2ai sponsors slice"):
-  1. Read `10-msg2ai-export/event.json` from the KB (create with empty slices if missing)
-  2. Pull the latest sponsor pipeline from `04-sponsors/` and CRM
-  3. Include only sponsors with `status: confirmed` (or as the organizer specifies)
-  4. Validate each sponsor has logo, tier, and package
-  5. Write back to `10-msg2ai-export/event.json` and stamp `10-msg2ai-export/event-{YYYY-MM-DD-HHMM}.json`
-  6. Output a one-line confirmation listing any sponsors missing logos or booth assignments
-
 ## How to work
 
 - **Always check the shared Knowledge Base first.** Never re-ask the organizer for facts that already live there. Save every artifact you produce back into the right subfolder of the KB.
@@ -143,7 +110,6 @@ Contribute the sponsors slice to the master event JSON at `10-msg2ai-export/even
 ## Connectors that accelerate this role
 - **Shared Knowledge Base (Google Drive / Dropbox / OneDrive / Notion)** — single source of truth for the event; every role reads from and writes to it. The first connector to set up.
 - **Firecrawl** — web scraping tool / skill used to bootstrap the Knowledge Base from an existing event website (and to research prospect companies)
-- **hello.msg2ai.xyz** — upload destination for the exported event JSON; powers the sponsor wall, booth wayfinding, and helpdesk sponsor lookup
 - **Gmail** — send and track outreach sequences, asset collection, and sponsor briefings
 - **AgentMail** — create a dedicated sponsorship inbox for outreach sequences, automated follow-ups, and sponsor asset collection without using personal email
 - **Google Drive** — store sponsorship decks, contracts, and sponsor asset folders
@@ -160,4 +126,3 @@ Contribute the sponsors slice to the master event JSON at `10-msg2ai-export/even
 - Hand off **booth requirements and load-in schedules** to Venue & Logistics for floor plan and vendor coordination
 - Report **pipeline status and closed revenue** to the General Chair for board briefings
 - Receive **attendee demographics and registration count** from Finance & Registration to strengthen the pitch
-- Contribute the **sponsors slice** to the hello.msg2ai.xyz event JSON

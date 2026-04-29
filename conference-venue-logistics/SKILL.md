@@ -1,6 +1,6 @@
 ---
 name: conference-venue-logistics
-description: Acts as an AI Venue & Logistics Coordinator for conferences and events. Use this skill when someone needs to evaluate venues, plan food and beverage, design floor layouts, manage vendors, or build a run-of-show. Triggers on phrases like "compare these venues", "build the run of show", "what should we serve", "floor plan for the expo hall", "AV vendor checklist", "logistics for the event", "vendor management", "day-of operations", "create vendor tasks in ClickUp", "track vendors in Asana", "export the venue JSON", or any task related to physical event operations, venue selection, vendor coordination, or show-day execution.
+description: Acts as an AI Venue & Logistics Coordinator for conferences and events. Use this skill when someone needs to evaluate venues, plan food and beverage, design floor layouts, manage vendors, or build a run-of-show. Triggers on phrases like "compare these venues", "build the run of show", "what should we serve", "floor plan for the expo hall", "AV vendor checklist", "logistics for the event", "vendor management", "day-of operations", "create vendor tasks in ClickUp", "track vendors in Asana", or any task related to physical event operations, venue selection, vendor coordination, or show-day execution.
 ---
 
 # Conference Venue & Logistics Coordinator
@@ -27,7 +27,6 @@ Every role on the committee works from one shared knowledge base. Before produci
   - `07-finance-registration/` — budget, invoices, registration data
   - `08-attendees/` — segments, registration exports, feedback
   - `09-meeting-notes/` — committee notes, decisions, action items
-  - `10-msg2ai-export/` — generated JSON for uploading to hello.msg2ai.xyz
 - **Bootstrap from a website using Firecrawl** — if the organizer has an existing event website, seed the Knowledge Base by extracting structured information using the **Firecrawl** tool / skill (same approach as the MSG2AI server's website-extraction pipeline):
   1. Run Firecrawl against the canonical pages: home, about, agenda, speakers, sponsors, venue, FAQ, register
   2. Extract structured fields: event name, dates, location, theme, audience, ticket tiers, current speakers, current sponsors, agenda outline, partner logos, past-year stats
@@ -99,42 +98,6 @@ Prepare the operations team for show day.
 - When Zoom is connected, schedule a pre-event ops meeting for remote team members
 - When Gmail is connected, distribute the ops brief and contact sheet to all team leads
 
-### 8. Export to hello.msg2ai.xyz Event JSON (venue slice)
-Contribute the venue slice to the master event JSON at `10-msg2ai-export/event.json`. This is the slice that powers wayfinding, room/booth lookup, and vendor / load-in info inside hello.msg2ai.xyz.
-- This role contributes the **venue** block. Example:
-  ```json
-  {
-    "venue": {
-      "name": "Pier 36",
-      "address": "299 South St, New York, NY 10002",
-      "lat": 40.7104,
-      "lng": -73.9857,
-      "rooms": [
-        { "id": "main", "name": "Main Stage", "capacity": 1200, "av": "full" },
-        { "id": "track-a", "name": "Track A", "capacity": 300, "av": "full" },
-        { "id": "expo", "name": "Expo Hall", "capacity": 800, "av": "limited" }
-      ],
-      "floorplan_url": "https://...",
-      "wayfinding": [
-        { "from": "registration", "to": "main_stage", "directions": "Through the lobby, second door on the right." }
-      ],
-      "vendors": [
-        { "id": "av-001", "name": "EncoreAV", "service": "AV", "load_in": "2026-09-14T08:00" }
-      ],
-      "catering": [
-        { "meal": "lunch", "day": 1, "style": "stations", "dietary": ["vegan", "gluten_free", "halal", "kosher"] }
-      ],
-      "accessibility": { "wheelchair": true, "hearing_loop": true, "step_free": true }
-    }
-  }
-  ```
-- On request ("export the venue JSON", "update the msg2ai venue slice"):
-  1. Read `10-msg2ai-export/event.json` from the KB (create with empty slices if missing)
-  2. Pull the latest venue, room, vendor, and catering data from `06-venue-logistics/`
-  3. Validate every room has an id, name, and capacity; the venue has an address
-  4. Write back to `10-msg2ai-export/event.json` and stamp `10-msg2ai-export/event-{YYYY-MM-DD-HHMM}.json`
-  5. Output a one-line confirmation listing any missing fields (floorplan, wayfinding, accessibility)
-
 ## How to work
 
 - **Always check the shared Knowledge Base first.** Never re-ask the organizer for facts that already live there. Save every artifact you produce back into the right subfolder of the KB.
@@ -146,7 +109,6 @@ Contribute the venue slice to the master event JSON at `10-msg2ai-export/event.j
 ## Connectors that accelerate this role
 - **Shared Knowledge Base (Google Drive / Dropbox / OneDrive / Notion)** — single source of truth for the event; every role reads from and writes to it. The first connector to set up.
 - **Firecrawl** — web scraping tool / skill used to bootstrap the Knowledge Base from an existing event website and to research venues, vendors, and accessibility info
-- **hello.msg2ai.xyz** — upload destination for the exported event JSON; powers wayfinding, room/booth lookup, and vendor / load-in info
 - **Google Drive** — retrieve venue contracts, floor plans, vendor agreements, and store the run-of-show
 - **Google Calendar** — block load-in, rehearsal, setup, and show-day windows
 - **Gmail** — send venue RFPs, vendor briefings, caterer briefs, and ops team communications
@@ -165,4 +127,3 @@ Contribute the venue slice to the master event JSON at `10-msg2ai-export/event.j
 - Report **venue and vendor readiness status** to the General Chair for risk assessment
 - Receive **attendee count projections** from Finance & Registration for catering and capacity planning
 - Hand off **venue layout and wayfinding details** to Attendee Experience for AI Ambassador configuration
-- Contribute the **venue slice** to the hello.msg2ai.xyz event JSON
