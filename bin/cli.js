@@ -44,7 +44,7 @@ function printBanner() {
 }
 
 function printUsage() {
-  console.log("Usage: npx conference-team-skills <command>");
+  console.log("Usage: npx @msg2ai/conference-team-skills <command>");
   console.log("");
   console.log("Commands:");
   console.log("  install     Install skills to ~/.claude/skills/");
@@ -106,7 +106,7 @@ function printPostInstall(skillsDir) {
   console.log("       bash " + path.join(skillsDir, "setup/setup-firecrawl.sh"));
   console.log("");
   console.log("  3) Run the full setup wizard to connect the integrations you use:");
-  console.log("       npx conference-team-skills setup");
+  console.log("       npx @msg2ai/conference-team-skills setup");
   console.log("     (or pick individual scripts in " + path.join(skillsDir, "setup") + ")");
   console.log("");
   console.log("  4) See a real run — the FutureStack 2026 mock conference shows what");
@@ -127,7 +127,7 @@ function install() {
     console.log("Skills are already installed at:");
     console.log("  " + skillsDir);
     console.log("");
-    console.log("Run 'npx conference-team-skills update' to get the latest version.");
+    console.log("Run 'npx @msg2ai/conference-team-skills update' to get the latest version.");
     return;
   }
 
@@ -177,7 +177,7 @@ function install() {
     console.error("");
     console.error("Warning: install completed but expected files are missing:");
     for (const m of missing) console.error("  - " + m);
-    console.error("Run 'npx conference-team-skills update' to retry.");
+    console.error("Run 'npx @msg2ai/conference-team-skills update' to retry.");
   }
 
   printPostInstall(skillsDir);
@@ -218,8 +218,8 @@ function update() {
   } catch {
     console.error("");
     console.error("Error: Failed to update. Try uninstalling and reinstalling:");
-    console.error("  npx conference-team-skills uninstall");
-    console.error("  npx conference-team-skills install");
+    console.error("  npx @msg2ai/conference-team-skills uninstall");
+    console.error("  npx @msg2ai/conference-team-skills install");
     process.exit(1);
   }
 
@@ -246,7 +246,7 @@ function list() {
     console.log("Status: Installed at " + skillsDir);
   } else {
     console.log("Status: Not installed");
-    console.log("Run 'npx conference-team-skills install' to install.");
+    console.log("Run 'npx @msg2ai/conference-team-skills install' to install.");
   }
   console.log("");
 }
@@ -254,13 +254,13 @@ function list() {
 function setup() {
   const skillsDir = getSkillsDir();
   if (!fs.existsSync(skillsDir)) {
-    console.error("Skills are not installed. Run 'npx conference-team-skills install' first.");
+    console.error("Skills are not installed. Run 'npx @msg2ai/conference-team-skills install' first.");
     process.exit(1);
   }
   const setupAll = path.join(skillsDir, "setup", "setup-all.sh");
   if (!fs.existsSync(setupAll)) {
     console.error("Could not find " + setupAll);
-    console.error("Run 'npx conference-team-skills update' and try again.");
+    console.error("Run 'npx @msg2ai/conference-team-skills update' and try again.");
     process.exit(1);
   }
   console.log("Launching the integration setup wizard...");
@@ -275,7 +275,7 @@ function setup() {
 function mock() {
   const skillsDir = getSkillsDir();
   if (!fs.existsSync(skillsDir)) {
-    console.error("Skills are not installed. Run 'npx conference-team-skills install' first.");
+    console.error("Skills are not installed. Run 'npx @msg2ai/conference-team-skills install' first.");
     process.exit(1);
   }
   const mockDir = path.join(skillsDir, "mock");

@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A collection of 8 Claude Code skills for conference organizing teams, packaged three ways:
 1. **Personal skills** — clone into `~/.claude/skills/` and they're auto-detected
 2. **Claude Code plugin** — load via `claude --plugin-dir` using the `.claude-plugin/plugin.json` manifest
-3. **npm package** — `npx conference-team-skills install` runs `bin/cli.js` which clones to the skills directory
+3. **npm package** — `npx @msg2ai/conference-team-skills install` runs `bin/cli.js` which clones to the skills directory
 
 There is no build step, no tests, and no dependencies. The deliverables are markdown files.
 
